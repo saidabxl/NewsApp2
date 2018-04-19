@@ -18,19 +18,16 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.description;
-import static android.os.Build.VERSION_CODES.M;
-
 
 public class QueryUtils {
 
     public static final String LOG_TAG = QueryUtils.class.getName();
 
-    private QueryUtils (){
+    private QueryUtils() {
     }
 
     public static List<Article> fetchArticleData(String requestUrl) {
-        
+
         URL url = createUrl(requestUrl); //Instantiate URL object and execute createURL(@String) method
 
         // Perform HTTP request to the URL and receive a JSON response back
@@ -39,7 +36,7 @@ public class QueryUtils {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
             // TODO Handle the IOException
-            Log.e (LOG_TAG , "It was not possible to connect to the server", e) ;
+            Log.e(LOG_TAG, "It was not possible to connect to the server", e);
         }
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
@@ -77,16 +74,16 @@ public class QueryUtils {
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.connect();
 
-            if (urlConnection.getResponseCode() == 200 ) {
+            if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-            }else {
+            } else {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
 
         } catch (IOException e) {
             // TODO: Handle the exception
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e ) ;
+            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
 
         } finally {
             if (urlConnection != null) {
@@ -129,70 +126,63 @@ public class QueryUtils {
             return null;
         }
 
-        // Create an empty ArrayList that we can start adding earthquakes to
+
         List<Article> articles = new ArrayList<>();
 
-        // Try to parse the JSON response string. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
+
         try {
-            // Create a JSONObject from the JSON response string
+
             JSONObject baseJsonResponse = new JSONObject(articlesJSON);
 
-            // Extract the JSONArray associated with the key called "response",
-            // which represents a list of features (or articles).
-            JSONObject responseObject = baseJsonResponse.getJSONObject("response");
-            JSONArray articlesArray = responseObject.getJSONArray("results") ;
 
-            // If there are results in the features array
+            JSONObject responseObject = baseJsonResponse.getJSONObject("response");
+            JSONArray articlesArray = responseObject.getJSONArray("results");
+
+
             if (articlesArray.length() > 0) {
 
-                // For each article in the articlesArray, create an {@link Article} object
-                for (int i = 0 ; i < articlesArray.length() ; i++) {
 
-                    // Get a single article at position i within the list of articles
+                for (int i = 0; i < articlesArray.length(); i++) {
+
+
                     JSONObject articleObject = articlesArray.getJSONObject(i);
 
-                    String section= "";
-                    if(articleObject.has("sectionName")) {
+                    String section = "";
+                    if (articleObject.has("sectionName")) {
                         section = articleObject.getString("sectionName");
                     }
 
                     String date = "";
-                    if(articleObject.has("webPublicationDate")) {
+                    if (articleObject.has("webPublicationDate")) {
                         date = articleObject.getString("webPublicationDate");
                     }
 
-                    String title = "" ;
-                    if(articleObject.has("webTitle")) {
+                    String title = "";
+                    if (articleObject.has("webTitle")) {
                         title = articleObject.getString("webTitle");
                     }
 
                     String url = "";
-                    if(articleObject.has("webUrl")) {
+                    if (articleObject.has("webUrl")) {
                         url = articleObject.getString("webUrl");
                     }
 
 
-                    String author= "";
-                    if(articleObject.has("author")) {
+                    String author = "";
+                    if (articleObject.has("author")) {
                         author = articleObject.getString("author");
                     }
 
 
+                    Article article = new Article(section, title, author, date, url);
 
-                    // Create a new {@link Article} object with the title, author, description,
-                    // and url from the JSON response.
-                    Article article = new Article (section, title, author, date , url );
 
-                    // Add the new {@link Article} to the list.
                     articles.add(article);
                 }
             }
 
         } catch (JSONException e) {
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
+
             Log.e(LOG_TAG, "Problem parsing the article JSON results", e);
         }
 

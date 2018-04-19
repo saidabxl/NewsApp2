@@ -17,8 +17,8 @@
 
     <!-- Strings used for the Preference Fragment -->
 
-                                     <!-- Step 1 -->
-                       <!-- Pop Up chart for Article Category Preference -->
+    <!-- Step 1 -->
+    <!-- Pop Up chart for Article Category Preference -->
 
     <!-- Strings For Category Preference [CHAR LIMIT=30] -->
     <string name="settings_category_label">Article Category</string>
@@ -26,8 +26,8 @@
     <string name="settings_category_key" translatable="false">category</string>
     <string name="settings_category_default" translatable="false">technology</string>
 
-                                       <!-- Step 2 -->
-                           <!-- Pop Up chart for OrderBy Preference -->
+    <!-- Step 2 -->
+    <!-- Pop Up chart for OrderBy Preference -->
     <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
     <string name="settings_order_by_label">Order By</string>
 

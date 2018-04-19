@@ -6,9 +6,7 @@ import android.content.Context;
 import java.util.List;
 
 
-
 import android.util.Log;
-
 
 
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {

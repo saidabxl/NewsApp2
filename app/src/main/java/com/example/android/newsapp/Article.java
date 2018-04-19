@@ -1,16 +1,13 @@
 package com.example.android.newsapp;
 
-import static android.os.Build.VERSION_CODES.M;
-
-
 
 public class Article {
 
-    private String section ;
-    private String title ;
+    private String section;
+    private String title;
     private String author;
-    private String url ;
-    private String date ;
+    private String url;
+    private String date;
     //private String image ; pending
 
     /*
@@ -21,12 +18,12 @@ public class Article {
     @param author to display if applicable
     @param date to display the date when the article was published
      */
-    public Article (String section, String title, String author,String date, String url){
-        this.section = section ;
-        this.title = title ;
-        this.author= author;
-        this.url = url ;
-        this.date = date ;
+    public Article(String section, String title, String author, String date, String url) {
+        this.section = section;
+        this.title = title;
+        this.author = author;
+        this.url = url;
+        this.date = date;
 
     }
 

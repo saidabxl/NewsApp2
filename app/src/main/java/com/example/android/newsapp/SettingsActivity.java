@@ -12,7 +12,7 @@ import android.util.Log;
 import static android.R.attr.value;
 import static com.example.android.newsapp.NewsActivity.ARTICLE_LOADER_ID;
 
-public class SettingsActivity extends AppCompatActivity  {
+public class SettingsActivity extends AppCompatActivity {
 
     public static final String LOG_TAG = SettingsActivity.class.getName();
 
@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity  {
 
         }
 
-        //Callback method executed when OnPreferenceChangeListener is executed and just returns a boolean value
+
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
 
@@ -60,7 +60,7 @@ public class SettingsActivity extends AppCompatActivity  {
             return true;
         }
 
-        //Method that updates the summary on the settings Activity
+
         private void bindPreferenceSummaryToValue(Preference preference) {
 
             preference.setOnPreferenceChangeListener(this);

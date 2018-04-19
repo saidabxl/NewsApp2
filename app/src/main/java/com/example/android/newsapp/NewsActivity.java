@@ -46,7 +46,6 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<Article>> loader, List<Article> articles) {
 
-        // Clear the adapter of previous earthquake data
         mAdapter.clear();
 
         // If there is a valid list of {@link Article}s, then add them to the adapter's
@@ -64,10 +63,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
 
-        /*
-        Create an instance object of SharedPreferences File for retrieving actual key-value pair,
-        storing the value in a string, and appending the value to the search query of the GUARDIAN URL
-        */
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 
@@ -125,7 +121,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
                                     long id) {
 
-                //Create object instance from Article class and get the position of the clickedItem
+
                 Article article = mAdapter.getItem(position);
 
                 //Get the assigned url query from the list item.

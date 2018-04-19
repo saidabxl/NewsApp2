@@ -39,16 +39,13 @@ public class QueryUtils {
             Log.e(LOG_TAG, "It was not possible to connect to the server", e);
         }
 
-        // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
+
         List<Article> articles = extractFeatureFromJson(jsonResponse);
 
         // Return the list of articles
         return articles;
     }
 
-    /**
-     * Returns new URL object from the given string URL.
-     */
     private static URL createUrl(String stringUrl) {
         URL url = null;
         try {
@@ -60,9 +57,7 @@ public class QueryUtils {
         return url;
     }
 
-    /**
-     * Make an HTTP request to the given URL and return a String as the response.
-     */
+
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
         HttpURLConnection urlConnection = null;
@@ -83,7 +78,7 @@ public class QueryUtils {
 
         } catch (IOException e) {
             // TODO: Handle the exception
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the news JSON results", e);
 
         } finally {
             if (urlConnection != null) {
@@ -97,10 +92,6 @@ public class QueryUtils {
         return jsonResponse;
     }
 
-    /**
-     * Convert the {@link InputStream} into a String which contains the
-     * whole JSON response from the server.
-     */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
@@ -115,10 +106,7 @@ public class QueryUtils {
         return output.toString();
     }
 
-    /**
-     * Return an {@link Article} object by parsing out information
-     * about the first earthquake from the input earthquakeJSON string.
-     */
+
     private static List<Article> extractFeatureFromJson(String articlesJSON) {
 
         // If the JSON string is empty or null, then return early.
@@ -133,14 +121,11 @@ public class QueryUtils {
         try {
 
             JSONObject baseJsonResponse = new JSONObject(articlesJSON);
-
-
             JSONObject responseObject = baseJsonResponse.getJSONObject("response");
             JSONArray articlesArray = responseObject.getJSONArray("results");
 
 
             if (articlesArray.length() > 0) {
-
 
                 for (int i = 0; i < articlesArray.length(); i++) {
 
@@ -173,9 +158,7 @@ public class QueryUtils {
                         author = articleObject.getString("author");
                     }
 
-
                     Article article = new Article(section, title, author, date, url);
-
 
                     articles.add(article);
                 }
